@@ -11,14 +11,14 @@ class Vector implements Map {
 
 
     private $values;
-    private $capacity;
+    private $capacity = 0;
 
 
     /**
      * @param int $capacity
      * @param mixed $initial Value to populate the Vector with
      */
-    function __constructor($capacity, $initial) {
+    function __construct($capacity, $initial = null) {
         $this->values = new \SplFixedArray($capacity);
         $this->capacity = $capacity;
         for ($i = 0; $i < $capacity; ++$i) {
