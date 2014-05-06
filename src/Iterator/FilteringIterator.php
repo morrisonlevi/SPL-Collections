@@ -18,17 +18,17 @@ class FilteringIterator implements Enumerator {
 
     function rewind() {
         $this->inner->rewind();
-        $this->forward();
+        $this->moveToNextMatch();
     }
 
 
     function next() {
         $this->inner->next();
-        $this->forward();
+        $this->moveToNextMatch();
     }
 
 
-    private function forward() {
+    private function moveToNextMatch() {
         $filter = $this->filter;
         while ($this->inner->valid() && !$filter($this->inner->current(), $this->inner->key())) {
             $this->inner->next();
