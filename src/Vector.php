@@ -4,8 +4,8 @@ namespace Spl;
 
 
 /**
- * Vector is a specialization of Map<int,V> that throws exceptions when passed non-integer keys
- * and on out of bounds offsets.
+ * Vector is a fixed-size Map<int,V> that throws exceptions when passed
+ * non-integer keys and on out of bounds offsets.
  */
 class Vector implements Map {
 
@@ -15,15 +15,23 @@ class Vector implements Map {
 
 
     /**
-     * @param int $capacity
-     * @param mixed $initial Value to populate the Vector with
+     * @param \Traversable|null $t
      */
-    function __construct($capacity, $initial = null) {
-        $this->values = new \SplFixedArray($capacity);
-        $this->capacity = $capacity;
-        for ($i = 0; $i < $capacity; ++$i) {
-            $this->values[$i] = $initial;
+    function __construct(\Traversable $t = null) {
+        $capacity = 8;
+        $this->values = $values = new \SplFixedArray($capacity);
+        $size = 0;
+        if ($t) {
+            foreach ($t as $value) {
+                if ($size === $capacity) {
+                    $values->setSize($capacity * 2);
+                }
+                $values[$size++] = $value;
+            }
         }
+
+        $values->setSize($size);
+        $this->capacity = $size;
     }
 
 
@@ -116,13 +124,28 @@ class Vector implements Map {
     }
 
 
-    /**
-     * A Vector size always of the size it was created with.
+    /**l
+     * A Vector is always of the size it was created with.
      * @link http://php.net/manual/en/class.countable.php
      * @return int
      */
     function count() {
         return $this->capacity;
+    }
+
+
+    /**
+     * @param int $size
+     * @param mixed $value
+     */
+    function resize($size, $value) {
+        $current_size = $this->capacity;
+        $this->values->setSize($size);
+        if ($size > $current_size) {
+            for ($i = $current_size; $i < $size; ++$i) {
+                $this->values[$i] = $value;
+            }
+        }
     }
 
 
@@ -135,11 +158,12 @@ class Vector implements Map {
 
 
     private function guardInteger($offset) {
-        $filtered = filter_var($offset, FILTER_VALIDATE_INT, FILTER_FLAG_ALLOW_OCTAL|FILTER_FLAG_ALLOW_HEX);
-        if ($filtered === false) {
+        $hex_octal_okay = FILTER_FLAG_ALLOW_OCTAL | FILTER_FLAG_ALLOW_HEX;
+        $clean = filter_var($offset, FILTER_VALIDATE_INT, $hex_octal_okay);
+        if ($clean === false) {
             throw new \Exception();
         }
-        return $filtered;
+        return $clean;
 
     }
 
