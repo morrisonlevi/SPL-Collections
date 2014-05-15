@@ -70,8 +70,8 @@ function iterator_keys(\Traversable $t) {
 
 function reduce(/*foreachable*/ $t, $initial,  callable $f) {
     $carry = $initial;
-    foreach ($t as $value) {
-        $carry = $f($value, $carry);
+    foreach ($t as $key => $value) {
+        $carry = $f($carry, $value, $key);
     }
     return $carry;
 }
