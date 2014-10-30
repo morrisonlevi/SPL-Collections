@@ -1,11 +1,11 @@
 <?php
 
-namespace Spl;
+namespace PHP\Collection;
 
 
-class FilteringIterator implements Enumerator {
+class FilteringEnumerator implements Enumerator {
 
-    use OuterIterator;
+    use OuterEnumerator;
 
     private $filter;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Spl;
+namespace PHP\Collection;
 
 
 class IteratorToCollectionAdapter implements Enumerator {
 
-    use OuterIterator;
+    use OuterEnumerator;
 
 
     function __construct(\Iterator $i) {

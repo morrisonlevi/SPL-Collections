@@ -1,37 +1,26 @@
 <?php
 
-namespace Spl;
+namespace PHP\Collection;
 
 
 /**
- * Vector is a fixed-size Map<int,V> that throws exceptions when passed
- * non-integer keys and on out of bounds offsets.
+ * Vector is a Map<int,V> with sequential keys that does bounds checking.
  */
 class Vector implements Map {
 
 
-    private $values;
-    private $capacity = 0;
+    private $values = [];
 
 
     /**
-     * @param \Traversable|null $t
+     * @param array|string|\Traversable $t
      */
-    function __construct(\Traversable $t = null) {
-        $capacity = 8;
-        $this->values = $values = new \SplFixedArray($capacity);
-        $size = 0;
-        if ($t) {
-            foreach ($t as $value) {
-                if ($size === $capacity) {
-                    $values->setSize($capacity * 2);
-                }
-                $values[$size++] = $value;
+    function __construct($t = null) {
+        if ($t !== null) {
+            foreach (\PHP\Algorithm\to_iterator($t) as $value) {
+                $this->values[] = $value;
             }
         }
-
-        $values->setSize($size);
-        $this->capacity = $size;
     }
 
 
@@ -39,25 +28,35 @@ class Vector implements Map {
      * @return bool
      */
     function isEmpty() {
-        return $this->capacity === 0;
+        return count($this->values) === 0;
     }
 
 
     /**
      * @param callable $f ($value): mixed
-     * @return Collection
+     * @return Vector
      */
     function map(callable $f) {
-        return $this->getIterator()->map($f);
+        $out = new self();
+        foreach ($this->values as $key => $value) {
+            $out[] = $f($value, $key);
+        }
+        return $out;
     }
 
 
     /**
      * @param callable $f ($value): bool
-     * @return Collection
+     * @return Vector
      */
     function filter(callable $f) {
-        return $this->getIterator()->filter($f);
+        $out = new self();
+        foreach ($this->values as $key => $value) {
+            if ($f($value, $key)) {
+                $out[] = $value;
+            }
+        }
+        return $out;
     }
 
 
@@ -70,7 +69,7 @@ class Vector implements Map {
      */
     function offsetExists($offset) {
         $index = $this->guardInteger($offset);
-        return $index >= 0  && $index < $this->capacity;
+        return $index >= 0  && $index < count($this->values);
     }
 
 
@@ -120,11 +119,11 @@ class Vector implements Map {
      * @return Enumerator
      */
     function getIterator() {
-        return new IteratorToCollectionAdapter($this->values);
+        return new IteratorToCollectionAdapter(\PHP\Algorithm\to_iterator($this->values));
     }
 
 
-    /**l
+    /**
      * A Vector is always of the size it was created with.
      * @link http://php.net/manual/en/class.countable.php
      * @return int

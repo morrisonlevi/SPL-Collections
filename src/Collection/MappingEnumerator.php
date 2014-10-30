@@ -1,11 +1,11 @@
 <?php
 
-namespace Spl;
+namespace PHP\Collection;
 
 
-class MappingIterator implements Enumerator {
+class MappingEnumerator implements Enumerator {
 
-    use OuterIterator;
+    use OuterEnumerator;
 
     private $mapper;
 

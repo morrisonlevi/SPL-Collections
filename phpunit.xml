@@ -1,4 +1,4 @@
-<phpunit bootstrap="vendor/autoload.php" colors="true">
+<phpunit bootstrap="./bootstrap.php" colors="true">
     <testsuites>
         <testsuite name="Unit-Tests">
             <directory>./test</directory>
@@ -6,7 +6,7 @@
     </testsuites>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
-            <directory>src</directory>
+            <directory>./src</directory>
         </whitelist>
     </filter>
 

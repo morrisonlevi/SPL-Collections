@@ -1,6 +1,6 @@
 <?php
 
-namespace Spl;
+namespace PHP\Collection;
 
 
 class VectorTest extends \PHPUnit_Framework_TestCase {
@@ -13,13 +13,13 @@ class VectorTest extends \PHPUnit_Framework_TestCase {
 
 
     function test_isEmpty_vectorIsGreaterThanZero_returnsFalse() {
-        $vector = new Vector(new \ArrayIterator([1]));
+        $vector = new Vector([1]);
         $this->assertFalse($vector->isEmpty());
     }
 
 
     function test_setThenGet_returnsProperValue() {
-        $vector = new Vector(new \ArrayIterator([1]));
+        $vector = new Vector([1]);
         $this->assertEquals(1, $vector[0]);
     }
 

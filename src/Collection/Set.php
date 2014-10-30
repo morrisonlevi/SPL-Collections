@@ -1,6 +1,6 @@
 <?php
 
-namespace Spl;
+namespace PHP\Collection;
 
 
 interface Set extends Enumerable {

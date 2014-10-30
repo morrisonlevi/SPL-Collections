@@ -1,9 +1,9 @@
 <?php
 
-namespace Spl;
+namespace PHP\Collection;
 
 
-trait OuterIterator {
+trait OuterEnumerator {
 
     /**
      * @var \Iterator
@@ -26,7 +26,7 @@ trait OuterIterator {
      * @return Collection
      */
     function map(callable $f) {
-        return new MappingIterator($this->inner, $f);
+        return new MappingEnumerator($this->inner, $f);
     }
 
 
@@ -35,7 +35,7 @@ trait OuterIterator {
      * @return Collection
      */
     function filter(callable $f) {
-        return new FilteringIteratorTest($this->inner, $f);
+        return new FilteringEnumerator($this->inner, $f);
     }
 
 

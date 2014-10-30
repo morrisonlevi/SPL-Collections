@@ -1,14 +1,14 @@
 <?php
 
-namespace Spl;
+namespace PHP\Collection;
 
 
-class FilteringIteratorTest extends \PHPUnit_Framework_TestCase {
+class FilteringEnumeratorTest extends \PHPUnit_Framework_TestCase {
 
 
     function test_rewind_skips_non_matching_data() {
         $inner = new \ArrayIterator([0, 1, 2, 3]);
-        $iterator = new FilteringIterator($inner, function($value) {
+        $iterator = new FilteringEnumerator($inner, function($value) {
             return $value % 2 === 1;
         });
 
@@ -20,7 +20,7 @@ class FilteringIteratorTest extends \PHPUnit_Framework_TestCase {
 
     function test_rewind_does_not_skip_matching_data() {
         $inner = new \ArrayIterator([0, 1, 2, 3]);
-        $iterator = new FilteringIterator($inner, function($value) {
+        $iterator = new FilteringEnumerator($inner, function($value) {
             return $value % 2 === 0;
         });
 
@@ -35,7 +35,7 @@ class FilteringIteratorTest extends \PHPUnit_Framework_TestCase {
      */
     function test_next_skips_non_matching_data() {
         $inner = new \ArrayIterator([0, 1, 2, 3]);
-        $iterator = new FilteringIterator($inner, function($value) {
+        $iterator = new FilteringEnumerator($inner, function($value) {
             return $value % 2 === 0;
         });
 
@@ -51,7 +51,7 @@ class FilteringIteratorTest extends \PHPUnit_Framework_TestCase {
      */
     function test_next_does_not_skip_matching_data() {
         $inner = new \ArrayIterator([0, 2]);
-        $iterator = new FilteringIterator($inner, function($value) {
+        $iterator = new FilteringEnumerator($inner, function($value) {
             return $value % 2 === 0;
         });
 
