@@ -1,6 +1,6 @@
 <?php
 
-namespace Spl;
+namespace PHP\Algorithm;
 
 function map(/*foreachable*/ $t, callable $f) {
     if (is_array($t)) {
