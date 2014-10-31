@@ -4,7 +4,10 @@ namespace PHP\Collection;
 
 
 /**
- * Vector is a Map<int,V> with sequential keys that does bounds checking.
+ * Vector is a Map<int,V> with sequential keys that does bounds checking. Indices are checked as
+ * strict integers, meaning is_int($index) must be true. This is a design trade-off: it is easier to
+ * migrate code if it is made strict now and relaxed later than it is to make it relaxed now and
+ * more strict later.
  */
 class Vector implements Map {
 
@@ -129,7 +132,7 @@ class Vector implements Map {
      * @return int
      */
     function count() {
-        return $this->capacity;
+        return count($this->values);
     }
 
 
@@ -157,13 +160,10 @@ class Vector implements Map {
 
 
     private function guardInteger($offset) {
-        $hex_octal_okay = FILTER_FLAG_ALLOW_OCTAL | FILTER_FLAG_ALLOW_HEX;
-        $clean = filter_var($offset, FILTER_VALIDATE_INT, $hex_octal_okay);
-        if ($clean === false) {
-            throw new \Exception();
+        if (!is_int($offset)) {
+            throw new \Exception;
         }
-        return $clean;
-
+        return $offset;
     }
 
 } 
