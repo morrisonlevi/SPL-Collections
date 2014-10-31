@@ -136,21 +136,6 @@ class Vector implements Map {
     }
 
 
-    /**
-     * @param int $size
-     * @param mixed $value
-     */
-    function resize($size, $value) {
-        $current_size = $this->capacity;
-        $this->values->setSize($size);
-        if ($size > $current_size) {
-            for ($i = $current_size; $i < $size; ++$i) {
-                $this->values[$i] = $value;
-            }
-        }
-    }
-
-
     private function guardExists($offset) {
         if (!$this->offsetExists($offset)) {
             throw new \Exception();
