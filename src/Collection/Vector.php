@@ -36,7 +36,7 @@ class Vector implements Map {
 
 
     /**
-     * @param callable $f ($value): mixed
+     * @param callable $f ($value, $key): mixed
      * @return Vector
      */
     function map(callable $f) {
@@ -49,7 +49,7 @@ class Vector implements Map {
 
 
     /**
-     * @param callable $f ($value): bool
+     * @param callable $f ($value, $key): bool
      * @return Vector
      */
     function filter(callable $f) {
@@ -71,8 +71,8 @@ class Vector implements Map {
      * @throws \Exception
      */
     function offsetExists($offset) {
-        $index = $this->guardInteger($offset);
-        return $index >= 0  && $index < count($this->values);
+        $this->guardInteger($offset);
+        return $offset >= 0  && $offset < count($this->values);
     }
 
 
@@ -84,9 +84,9 @@ class Vector implements Map {
      * @throws \Exception
      */
     function offsetGet($offset) {
-        $index = $this->guardInteger($offset);
-        $this->guardExists($index);
-        return $this->values[$index];
+        $this->guardInteger($offset);
+        $this->guardExists($offset);
+        return $this->values[$offset];
     }
 
 
@@ -99,9 +99,13 @@ class Vector implements Map {
      * @throws \Exception
      */
     function offsetSet($offset, $value) {
-        $index = $this->guardInteger($offset);
-        $this->guardExists($index);
-        $this->values[$index] = $value;
+        if ($offset !== null) {
+            $this->guardInteger($offset);
+            $this->guardExists($offset);
+            $this->values[$offset] = $value;
+        } else {
+            $this->values[] = $value;
+        }
     }
 
 
@@ -148,7 +152,6 @@ class Vector implements Map {
         if (!is_int($offset)) {
             throw new \Exception;
         }
-        return $offset;
     }
 
 } 

@@ -24,11 +24,10 @@ class VectorTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    function test_offsetSet_withNull_throwsException() {
-        $this->setExpectedException('\Exception');
-
+    function test_offsetSet_withNull_appendsValue() {
         $vector = new Vector(new \ArrayIterator([1]));
-        $vector[] = 1;
+        $vector[] = 2;
+        $this->assertEquals(2, $vector[1]);
     }
 
 
