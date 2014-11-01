@@ -1,6 +1,6 @@
 <?php
 
-namespace PHP\Collection;
+use PHP\Collection\Vector;
 
 
 class VectorTest extends \PHPUnit_Framework_TestCase {
@@ -32,7 +32,7 @@ class VectorTest extends \PHPUnit_Framework_TestCase {
 
 
     function test_offsetSet_withNonIntegerString_throwsException() {
-        $this->setExpectedException('\Exception');
+        $this->setExpectedException('PHP\TypeException');
 
         $vector = new Vector();
         $vector['not an integer'] = 1;
@@ -43,6 +43,14 @@ class VectorTest extends \PHPUnit_Framework_TestCase {
         $vector = new Vector(new \ArrayIterator([1]));
         $vector[0] = 1;
         $this->assertEquals(1, $vector['0']);
+    }
+
+
+    function test_offsetUnset_throwsException() {
+        $this->setExpectedException('PHP\Exception');
+
+        $vector = new Vector([1]);
+        unset($vector[0]);
     }
 
 

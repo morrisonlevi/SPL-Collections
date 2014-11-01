@@ -16,7 +16,7 @@ class Vector implements Map {
 
 
     /**
-     * @param array|string|\Traversable $t
+     * @param array|string|\Traversable [optional] $t
      */
     function __construct($t = null) {
         if ($t !== null) {
@@ -68,7 +68,7 @@ class Vector implements Map {
      * @param int $offset
      * @return bool
      *
-     * @throws \Exception
+     * @throws \PHP\TypeException
      */
     function offsetExists($offset) {
         $this->guardInteger($offset);
@@ -81,7 +81,8 @@ class Vector implements Map {
      * @param int $offset
      * @return mixed
      *
-     * @throws \Exception
+     * @throws \PHP\LookupException
+     * @throws \PHP\TypeException
      */
     function offsetGet($offset) {
         $this->guardInteger($offset);
@@ -96,7 +97,8 @@ class Vector implements Map {
      * @param mixed $value
      * @return void
      *
-     * @throws \Exception
+     * @throws \PHP\LookupException
+     * @throws \PHP\TypeException
      */
     function offsetSet($offset, $value) {
         if ($offset !== null) {
@@ -110,15 +112,15 @@ class Vector implements Map {
 
 
     /**
-     * You cannot delete an index in a Vector; always throws an exception.
+     * Vectors must have sequential indices; therefore unset is not permitted
      * @link http://php.net/manual/en/arrayaccess.offsetunset.php
      * @param int $offset
      * @return void
      *
-     * @throws \Exception
+     * @throws \PHP\Exception
      */
     function offsetUnset($offset) {
-        throw new \Exception;
+        throw new \PHP\Exception;
     }
 
 
@@ -131,7 +133,6 @@ class Vector implements Map {
 
 
     /**
-     * A Vector is always of the size it was created with.
      * @link http://php.net/manual/en/class.countable.php
      * @return int
      */
@@ -142,15 +143,14 @@ class Vector implements Map {
 
     private function guardExists($offset) {
         if (!$this->offsetExists($offset)) {
-            throw new \Exception();
+            throw new \PHP\LookupException();
         }
-        return $offset;
     }
 
 
     private function guardInteger($offset) {
         if (!is_int($offset)) {
-            throw new \Exception;
+            throw new \PHP\TypeException;
         }
     }
 
