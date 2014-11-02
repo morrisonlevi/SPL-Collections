@@ -9,6 +9,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase {
         return $value % 2;
     }
 
+
     function test_filter() {
         $out = proxy([0,1,2,3])
             ->filter([$this, 'odd'])
@@ -39,6 +40,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(1, $out);
     }
 
+
     function test() {
         $ans = proxy(range(1,50))
             ->filter(function($value) { return $value % 2; })
@@ -48,4 +50,5 @@ class ProxyTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(1250, $ans);
     }
 
-} 
+
+}
