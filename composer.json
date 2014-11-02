@@ -1,5 +1,8 @@
 {
     "autoload": {
-        "classmap": ["src/"]
+        "files": ["bootstrap.php"]
+    },
+    "require": {
+        "php": "~5.6"
     }
 }

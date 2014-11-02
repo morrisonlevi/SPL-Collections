@@ -1,2 +1,4 @@
 vendor/
 test/coverage/
+test/php.ini
+.idea/
