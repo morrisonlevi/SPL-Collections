@@ -20,10 +20,15 @@ class Proxy {
 
 
     function __call($name, array $args) {
-        $f = isset($this->handlers[$name])
-            ? $this->handlers[$name]
-            : __NAMESPACE__ . "\\$name";
-        return $f($this->target, ...$args);
+        if (isset($this->handlers[$name])) {
+            $f = $this->handlers[$name];
+        } elseif (is_object($this->target) && method_exists($this->target, $name)) {
+            $f = [$this->target, $name];
+        } else {
+            $f = __NAMESPACE__ . "\\$name";
+        }
+
+        return new self($f($this->target, ...$args), $this->handlers);
     }
 
 
@@ -46,6 +51,10 @@ class Proxy {
         unset($this->target[$name]);
     }
 
+
+    function unbox() {
+        return $this->target;
+    }
 
 }
 
