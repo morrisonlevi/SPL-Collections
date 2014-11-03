@@ -30,9 +30,5 @@ function iterator_reduce(\Iterator $in, $initial, callable $f) {
 
 
 function reduce($in, $initial, callable $f) {
-    $carry = $initial;
-    foreach (to_iterator($in) as $key => $value) {
-        $carry = $f($carry, $value, $key);
-    }
-    return $carry;
+    return iterator_reduce(to_iterator($in), $initial, $f);
 }
