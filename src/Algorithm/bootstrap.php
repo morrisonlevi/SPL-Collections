@@ -4,7 +4,9 @@ namespace PHP\Algorithm;
 
 
 require __DIR__ . DIRECTORY_SEPARATOR . 'bind.php';
+require __DIR__ . DIRECTORY_SEPARATOR . 'compare.php';
 require __DIR__ . DIRECTORY_SEPARATOR . 'filter.php';
+require __DIR__ . DIRECTORY_SEPARATOR . 'hash.php';
 require __DIR__ . DIRECTORY_SEPARATOR . 'iterator_to_string.php';
 require __DIR__ . DIRECTORY_SEPARATOR . 'map.php';
 require __DIR__ . DIRECTORY_SEPARATOR . 'Proxy.php';
