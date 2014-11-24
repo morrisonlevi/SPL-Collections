@@ -23,14 +23,14 @@ function hash($value) {
         case 'integer':
             return 'n' . $value;
 
+        case 'boolean':
+            return 'n' . intval($value);
+
         case 'string':
             return "s${value}";
 
         case 'array':
             return 'a' . md5(serialize($value));
-
-        case 'boolean':
-            return 'b'. $value;
 
         case 'resource':
             return 'r' . $value;
@@ -39,3 +39,4 @@ function hash($value) {
             return '\0';
     }
 }
+
