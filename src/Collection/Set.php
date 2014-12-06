@@ -17,7 +17,7 @@ interface Set extends Enumerable {
      * @param mixed $value
      * @return bool
      */
-    function has($value);
+    function contains($value);
 
 
     /**
@@ -27,4 +27,4 @@ interface Set extends Enumerable {
     function remove($value);
 
 
-} 
+}
