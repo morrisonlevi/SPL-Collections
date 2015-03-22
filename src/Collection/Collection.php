@@ -6,10 +6,7 @@ namespace PHP\Collection;
 interface Collection extends \Traversable {
 
 
-    /**
-     * @return bool
-     */
-    function isEmpty();
+    function isEmpty(): bool;
 
 
     /**

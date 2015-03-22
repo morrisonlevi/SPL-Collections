@@ -14,10 +14,7 @@ class Dictionary implements Map {
     }
 
 
-    /**
-     * @return bool
-     */
-    function isEmpty() {
+    function isEmpty(): bool {
         return empty($this->storage);
     }
 
@@ -87,19 +84,15 @@ class Dictionary implements Map {
     }
 
 
-    /**
-     * @return Enumerator
-     */
-    function getIterator() {
+    function getIterator(): Enumerator {
         return new DictionaryEnumerator($this->storage);
     }
 
 
     /**
      * @link http://php.net/manual/en/countable.count.php
-     * @return int
      */
-    public function count() {
+    public function count(): int {
         return count($this->storage);
     }
 

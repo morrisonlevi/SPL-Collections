@@ -13,12 +13,12 @@ class ArrayEnumerator implements Enumerator, \Countable {
     }
 
 
-    function isEmpty()/*: bool*/ {
+    function isEmpty(): bool {
         return count($this->inner) === 0;
     }
 
 
-    function count()/*: int */ {
+    function count(): int {
         return count($this->inner);
     }
 

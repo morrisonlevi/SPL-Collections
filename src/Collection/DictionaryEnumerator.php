@@ -15,10 +15,7 @@ class DictionaryEnumerator implements Enumerator {
     }
 
 
-    /**
-     * @return bool
-     */
-    function isEmpty() {
+    function isEmpty(): bool {
         return $this->inner->count() === 0;
     }
 
@@ -70,11 +67,7 @@ class DictionaryEnumerator implements Enumerator {
     }
 
 
-    /**
-     * @link http://php.net/manual/en/iterator.valid.php
-     * @return boolean
-     */
-    public function valid() {
+    public function valid(): bool {
         return $this->inner->valid();
     }
 

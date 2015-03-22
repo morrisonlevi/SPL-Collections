@@ -11,7 +11,7 @@ namespace PHP\Algorithm;
  * @param mixed $value
  * @return string
  */
-function hash($value) {
+function hash($value): string {
     switch (gettype($value)) {
 
         case 'object':

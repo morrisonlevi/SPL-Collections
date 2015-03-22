@@ -14,7 +14,7 @@ final class SortedArraySet/*<T>*/ implements Set, \Countable {
 	}
 
 
-	function isEmpty()/*: bool*/ {
+	function isEmpty(): bool {
 		return count($this->data) === 0;
 	}
 
@@ -46,7 +46,7 @@ final class SortedArraySet/*<T>*/ implements Set, \Countable {
 	}
 
 
-	function contains(/*T*/ $item)/*: bool*/ {
+	function contains(/*T*/ $item): bool {
         $count = count($this->data);
         $comparator = $this->comparator;
 		if ($count === 0) {
@@ -95,7 +95,7 @@ final class SortedArraySet/*<T>*/ implements Set, \Countable {
 	}
 
 
-    function getIterator()/*: \Enumerator */ {
+    function getIterator(): Enumerator {
         return new ArrayEnumerator($this->data);
     }
 

@@ -13,11 +13,7 @@ interface Set extends Enumerable {
     function add($value);
 
 
-    /**
-     * @param mixed $value
-     * @return bool
-     */
-    function contains($value);
+    function contains($value): bool;
 
 
     /**

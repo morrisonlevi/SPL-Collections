@@ -27,10 +27,7 @@ class Vector implements Map {
     }
 
 
-    /**
-     * @return bool
-     */
-    function isEmpty() {
+    function isEmpty(): bool {
         return count($this->values) === 0;
     }
 
@@ -124,19 +121,15 @@ class Vector implements Map {
     }
 
 
-    /**
-     * @return Enumerator
-     */
-    function getIterator() {
+    function getIterator(): Enumerator {
         return new IteratorToCollectionAdapter(\PHP\Algorithm\to_iterator($this->values));
     }
 
 
     /**
      * @link http://php.net/manual/en/class.countable.php
-     * @return int
      */
-    function count() {
+    function count(): int {
         return count($this->values);
     }
 

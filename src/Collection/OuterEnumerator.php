@@ -11,10 +11,7 @@ trait OuterEnumerator {
     private $inner;
 
 
-    /**
-     * @return bool
-     */
-    function isEmpty() {
+    function isEmpty(): bool {
         $iterator = clone $this->inner;
         $iterator->rewind();
         return !$iterator->valid();
@@ -44,7 +41,7 @@ trait OuterEnumerator {
     }
 
 
-    function valid() {
+    function valid(): bool {
         return $this->inner->valid();
     }
 
